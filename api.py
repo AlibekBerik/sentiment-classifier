@@ -21,4 +21,4 @@ def predict(text: str):
         label = label_map.get(top.label, top.label)
         return {"text": text, "label": label, "confidence": round(top.score, 4)}
     except Exception as e:
-        return {"text": text, "error": str(e)}
+        return {"text": text, "error_type": type(e).__name__, "error_message": str(e) or "no message", "error_repr": repr(e)}
