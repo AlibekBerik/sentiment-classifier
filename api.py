@@ -3,8 +3,7 @@ from transformers import pipeline
 
 app = FastAPI(title="Sentiment Analysis API")
 
-classifier = pipeline("sentiment-analysis", model="./sentiment_model", tokenizer="./sentiment_model")
-
+classifier = pipeline("sentiment-analysis", model="Zolotouly/sentiment-classifier-model")
 label_map = {"LABEL_0": "negative", "LABEL_1": "positive"}
 
 @app.get("/")
