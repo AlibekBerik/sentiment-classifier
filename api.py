@@ -1,5 +1,7 @@
 from fastapi import FastAPI
 from transformers import pipeline
+import torch
+torch.set_grad_enabled(False)
 
 app = FastAPI(title="Sentiment Analysis API")
 
