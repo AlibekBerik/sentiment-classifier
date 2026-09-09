@@ -5,7 +5,11 @@ torch.set_grad_enabled(False)
 
 app = FastAPI(title="Sentiment Analysis API")
 
-classifier = pipeline("sentiment-analysis", model="Zolotouly/sentiment-classifier-model")
+classifier = pipeline(
+    "sentiment-analysis",
+    model="Zolotouly/sentiment-classifier-model",
+    model_kwargs={"low_cpu_mem_usage": True}
+)
 label_map = {"LABEL_0": "negative", "LABEL_1": "positive"}
 
 @app.get("/")
