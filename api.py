@@ -17,8 +17,6 @@ def home():
 def predict(text: str):
     try:
         result = client.text_classification(text, model="Zolotouly/sentiment-classifier-model")
-        top = result[0] if isinstance(result, list) else result
-        label = label_map.get(top.label, top.label)
-        return {"text": text, "label": label, "confidence": round(top.score, 4)}
+        return {"text": text, "raw_result": str(result), "result_type": str(type(result))}
     except Exception as e:
         return {"text": text, "error_type": type(e).__name__, "error_message": str(e) or "no message", "error_repr": repr(e)}
