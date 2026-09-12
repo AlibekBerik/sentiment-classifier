@@ -36,7 +36,7 @@ This API runs locally rather than as a public hosted endpoint. HuggingFace's fre
 
 ## Running it yourself
 
-\`\`\`bash
+\`\`\`
 
 git clone https://github.com/AlibekBerik/sentiment-classifier
 cd sentiment-classifier
