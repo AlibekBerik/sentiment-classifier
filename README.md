@@ -37,11 +37,14 @@ This API runs locally rather than as a public hosted endpoint. HuggingFace's fre
 ## Running it yourself
 
 \`\`\`bash
+
 git clone https://github.com/AlibekBerik/sentiment-classifier
 cd sentiment-classifier
 pip install -r requirements.txt
 uvicorn api:app --reload
+
 \`\`\`
+
 
 Then open `http://127.0.0.1:8000/docs` to test the `/predict` endpoint.
 
