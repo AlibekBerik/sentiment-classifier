@@ -27,7 +27,7 @@ Training used `load_best_model_at_end=True`, which keeps the checkpoint with the
 - Base model: `distilbert-base-uncased`
 - Dataset: IMDb (`stanfordnlp/imdb`), 3,000 training reviews / 1,000 test reviews
 - Epochs: 2
-- Batch size: 16
+- Batch size: 8 (per device, see `src/train.py`)
 - Max sequence length: 256
 - Training environment: Google Colab (T4 GPU)
 
