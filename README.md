@@ -1,10 +1,13 @@
 # Sentiment Classifier: Fine-tuned DistilBERT
 
 [![tests](https://github.com/AlibekBerik/sentiment-classifier/actions/workflows/tests.yml/badge.svg)](https://github.com/AlibekBerik/sentiment-classifier/actions/workflows/tests.yml)
+[![Live demo](https://img.shields.io/badge/%F0%9F%A4%97%20live%20demo-Spaces-FF9D00)](https://huggingface.co/spaces/Zolotouly/movie-review-sentiment)
 [![Model on Hugging Face](https://img.shields.io/badge/%F0%9F%A4%97%20model-sentiment--classifier--model-FFD21E)](https://huggingface.co/Zolotouly/sentiment-classifier-model)
 ![Python](https://img.shields.io/badge/python-3.11-3776AB?logo=python&logoColor=white)
 
 A sentiment analysis model fine-tuned on the IMDb dataset and served through a FastAPI backend.
+
+**Try it in your browser:** https://huggingface.co/spaces/Zolotouly/movie-review-sentiment
 
 ![demo](demo.gif)
 
@@ -56,7 +59,7 @@ pytest
 
 ## Browser demo
 
-`space/` contains a Gradio app ready for Hugging Face Spaces, so anyone can try the model without installing anything.
+The live demo runs from `space/`: a Gradio app on Hugging Face Spaces (ZeroGPU), so anyone can try the model without installing anything.
 
 ## Tech stack
 
