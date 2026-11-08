@@ -1,12 +1,23 @@
-# Sentiment Classifier - Fine-tuned DistilBERT
+# Sentiment Classifier: Fine-tuned DistilBERT
 
-A sentiment analysis model fine-tuned on the IMDb dataset, served through a FastAPI backend.
+[![tests](https://github.com/AlibekBerik/sentiment-classifier/actions/workflows/tests.yml/badge.svg)](https://github.com/AlibekBerik/sentiment-classifier/actions/workflows/tests.yml)
+[![Model on Hugging Face](https://img.shields.io/badge/%F0%9F%A4%97%20model-sentiment--classifier--model-FFD21E)](https://huggingface.co/Zolotouly/sentiment-classifier-model)
+![Python](https://img.shields.io/badge/python-3.11-3776AB?logo=python&logoColor=white)
 
-## Demo
+A sentiment analysis model fine-tuned on the IMDb dataset and served through a FastAPI backend.
 
 ![demo](demo.gif)
 
-The API loads the fine-tuned model locally and classifies text as positive or negative in real time.
+The API classifies text as positive or negative in real time.
+
+## Results
+
+| Epoch | Accuracy | F1 Score |
+|---|---|---|
+| **1 (final model)** | **85.9%** | **0.866** |
+| 2 | 87.3% | 0.873 |
+
+Training used `load_best_model_at_end=True`, which keeps the checkpoint with the lowest validation loss. That was epoch 1, so it is the published model, even though epoch 2 scored slightly higher on accuracy and F1.
 
 ## Training details
 
@@ -17,42 +28,36 @@ The API loads the fine-tuned model locally and classifies text as positive or ne
 - Max sequence length: 256
 - Training environment: Google Colab (T4 GPU)
 
-## Results
-
-| Epoch | Accuracy | F1 Score |
-|---|---|---|
-| 1 (best checkpoint, used as final model) | 85.9% | 0.866 |
-| 2 | 87.3% | 0.873 |
-
-The epoch 1 checkpoint was selected as the final model.
-
 ## Model
 
-The trained model is hosted on HuggingFace Hub: [Zolotouly/sentiment-classifier-model](https://huggingface.co/Zolotouly/sentiment-classifier-model)
-
-## Deployment note
-
-This API runs locally rather than as a public hosted endpoint. HuggingFace's free serverless Inference API doesn't support custom fine-tuned models, and free-tier cloud hosts (e.g. Render) hit memory limits when loading the full model with its dependencies. The GIF above shows the API running and serving live predictions locally.
+The trained model is on the Hugging Face Hub: [Zolotouly/sentiment-classifier-model](https://huggingface.co/Zolotouly/sentiment-classifier-model). The API downloads it from there automatically.
 
 ## Running it yourself
 
-\`\`\`
-
+```bash
 git clone https://github.com/AlibekBerik/sentiment-classifier
-
 cd sentiment-classifier
-
 pip install -r requirements.txt
-
 uvicorn api:app --reload
+```
 
-\`\`\`
+Then open `http://127.0.0.1:8000/docs` and try the `/predict` endpoint.
 
+The model is chosen in this order: the `MODEL_ID` environment variable, then a local `./sentiment_model` folder (created by `src/train.py`), then the Hub model above.
 
-Then open `http://127.0.0.1:8000/docs` to test the `/predict` endpoint.
+## Tests
+
+API tests run in CI on every push, with a stand-in classifier so no model download is needed. They cover label mapping, confidence rounding, input validation and model selection.
+
+```bash
+pip install -r requirements-dev.txt
+pytest
+```
+
+## Browser demo
+
+`space/` contains a Gradio app ready for Hugging Face Spaces, so anyone can try the model without installing anything.
 
 ## Tech stack
 
-- PyTorch, HuggingFace Transformers (fine-tuning)
-- FastAPI (serving)
-- HuggingFace Hub (model hosting)
+PyTorch · Hugging Face Transformers · FastAPI · Hugging Face Hub · Gradio · pytest · GitHub Actions
