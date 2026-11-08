@@ -11,7 +11,10 @@ classifier = pipeline("text-classification", model=MODEL_ID, tokenizer=MODEL_ID,
 def predict(text):
     if not text.strip():
         return {}
-    scores = classifier(text, truncation=True, max_length=256)[0]
+    scores = classifier(text, truncation=True, max_length=256)
+    # Depending on the transformers version, one input gives [{...}, {...}] or [[{...}, {...}]]
+    if scores and isinstance(scores[0], list):
+        scores = scores[0]
     return {LABELS.get(s["label"], s["label"]): s["score"] for s in scores}
 
 
